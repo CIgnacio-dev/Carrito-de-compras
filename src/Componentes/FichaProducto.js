@@ -7,6 +7,7 @@ class FichaProducto extends React.Component{
         super();
         this.state={
             modal:false,
+            stock: props.props.stock,
             listaCarrito
         };
 
@@ -19,13 +20,16 @@ class FichaProducto extends React.Component{
             modal: !prevState.modal
         }))
     }
+    
     agregarCarrito(){
+        
         listaCarrito.push({
             "titulo": this.props.props.titulo,
             "precio": this.props.props.precio
         });
         this.setState(prevState => ({
-            modal: !prevState.modal
+            modal: !prevState.modal,
+            stock: parseInt(prevState.stock) - 1
         }))
     }
     render(){
@@ -39,7 +43,7 @@ class FichaProducto extends React.Component{
                     <p>Personaje: </p>
                     { this.props.props.pecado }
                     <p> Este personaje tiene un nivel de poder de <b>{ this.props.props.subtitulo }</b></p>
-                    <p>Hay <b>{ this.props.props.stock }</b> unidades de este personaje disponibles.</p>
+                    <p>Hay <b>{ this.state.stock }</b> unidades de este personaje disponibles.</p>
                     <p>El precio de { this.props.props.titulo} es de <b>{ this.props.props.precio }</b></p>
                 </ModalBody>
                 <ModalFooter>
